@@ -1,0 +1,19 @@
+stages:
+
+  model_building:
+    cmd: python src/model/model_building.py
+    deps:
+      - data/interim/train_processed.csv
+      - src/model/model_building.py
+    outs:
+      - lgbm_model.pkl
+      - tfidf_vectorizer.pkl
+
+  model_evaluation:
+    cmd: python src/model/model_evaluation.py
+    deps:
+      - lgbm_model.pkl
+      - tfidf_vectorizer.pkl
+      - data/interim/train_processed.csv
+      - data/interim/test_processed.csv
+      - src/model/model_evaluation.py
